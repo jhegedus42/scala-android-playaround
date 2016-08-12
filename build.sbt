@@ -9,17 +9,22 @@ minSdkVersion := "15"
 scalaVersion := "2.11.8"
 
 libraryDependencies ++= Seq ("org.scalatest" %% "scalatest" % "2.2.6" % "test,androidTest",
-                              aar("com.android.support.test" % "runner" % "0.5"))
-instrumentTestRunner in Android :=
-    "android.support.test.runner.AndroidJUnitRunner"
+  "com.android.support.test" % "runner" % "0.5" % "test,androidTest")
+
+instrumentTestRunner in Android := "android.support.test.runner.AndroidJUnitRunner"
 
 debugIncludesTests := true
 
 proguardOptions ++=
     "-dontwarn android.test.**" ::
     "-dontwarn org.scalatest.**" ::
+    "-dontwarn scala.xml.**" ::
     "-dontwarn org.junit.**" ::
     "-keep class android.support.test.** { *; }" ::
+    "-keep class * extends junit.framework.TestCase { *; }" ::
+    "-keepclasseswithmembers class * { @org.junit.** *; }" ::
+    "-keep class android.support.test.** { *; }" ::
     "-keep class org.junit.** { *; }" ::
-    "-dontwarn scala.xml.**" ::
-    "-keep class * extends junit.framework.TestCase { *; }" :: Nil
+    Nil
+
+proguardCache ++= "org.scalatest" :: "org.scalactic" :: Nil
