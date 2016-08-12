@@ -155,7 +155,8 @@
 -keep class com.mypackage.test.MainActivity { <init>(...); }
 
 -dontwarn android.test.**
--dontwarn org.hamcrest.**
+-dontwarn org.scalatest.**
 -dontwarn org.junit.**
 -keep class android.support.test.** { *; }
 -keep class org.junit.** { *; }
+-keep class scala.** { *; }
