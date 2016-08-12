@@ -15,3 +15,4 @@ class MainActivity extends Activity with TypedFindView {
     
     }
 }
+

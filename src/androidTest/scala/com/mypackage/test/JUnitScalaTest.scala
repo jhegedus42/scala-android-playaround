@@ -1,4 +1,4 @@
-package scala.com.mypackage.test
+package com.mypackage.test
 
 import android.support.test.runner.AndroidJUnit4
 import android.test.InstrumentationTestCase

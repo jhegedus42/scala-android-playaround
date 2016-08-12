@@ -19,6 +19,7 @@ proguardOptions ++=
     "-dontwarn android.test.**" ::
     "-dontwarn org.scalatest.**" ::
     "-dontwarn org.junit.**" ::
-        "-keep class android.support.test.** { *; }" ::
-        "-keep class org.junit.** { *; }" ::
-        "-keep class scala.** { *; }" :: Nil
+    "-keep class android.support.test.** { *; }" ::
+    "-keep class org.junit.** { *; }" ::
+    "-dontwarn scala.xml.**" ::
+    "-keep class * extends junit.framework.TestCase { *; }" :: Nil

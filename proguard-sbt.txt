@@ -159,4 +159,5 @@
 -dontwarn org.junit.**
 -keep class android.support.test.** { *; }
 -keep class org.junit.** { *; }
--keep class scala.** { *; }
+-dontwarn scala.xml.**
+-keep class * extends junit.framework.TestCase { *; }
