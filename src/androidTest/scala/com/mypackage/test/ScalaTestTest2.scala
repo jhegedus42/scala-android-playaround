@@ -1,4 +1,4 @@
-package scala
+package com.mypackage.test
 
 import android.test.ActivityInstrumentationTestCase2
 import android.test.suitebuilder.annotation.SmallTest

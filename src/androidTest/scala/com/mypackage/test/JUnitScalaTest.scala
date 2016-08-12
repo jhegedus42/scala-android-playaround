@@ -1,10 +1,10 @@
-package scala
+package scala.com.mypackage.test
 
 import android.support.test.runner.AndroidJUnit4
 import android.test.InstrumentationTestCase
 import org.junit.Assert._
-import org.junit.{Before, Test}
 import org.junit.runner.RunWith
+import org.junit.{Before, Test}
 import org.scalatest.junit.AssertionsForJUnit
 
 import scala.collection.mutable.ListBuffer
