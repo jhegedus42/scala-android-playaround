@@ -9,12 +9,15 @@ class ScalaTestTest2() extends ActivityInstrumentationTestCase2[MainActivity]("c
  // print("start ! 42")
   @SmallTest def test2()
   {
-   // assertEquals(true, true)
+   //  assertEquals(true, true)
+    print("ykis")
     System.out.println("fasz " + this.getInstrumentation.getContext)
   }
   
   @SmallTest def test1()
   {
     //assertEquals(true, true)
+    print("ykis kasi")
+
   }
 }
