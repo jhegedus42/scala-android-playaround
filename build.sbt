@@ -1,6 +1,6 @@
 androidBuild
 
-platformTarget in Android := "android-23"
+platformTarget in Android := "android-21"
 
 javacOptions in Compile ++= "-source" :: "1.7" :: "-target" :: "1.7" :: Nil
 

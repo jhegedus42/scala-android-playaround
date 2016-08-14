@@ -3,6 +3,7 @@ package com.mypackage.test
 
 import android.support.test.runner.AndroidJUnit4
 import android.test.InstrumentationTestCase
+import android.test.suitebuilder.annotation.SmallTest
 import org.junit.Assert._
 import org.junit.runner.RunWith
 import org.junit.{Before, Test}
@@ -22,11 +23,12 @@ class JunitScalaTestExample extends InstrumentationTestCase with AssertionsForJU
     lb = new ListBuffer[String]
   }
 
-  @Test def verifyEasy() { // Uses JUnit-style assertions
+  @Test def testverifyEasy() { // Uses JUnit-style assertions
+    println("test 42")
     sb.append("easy!")
     assertEquals("ScalaTest is easy!", sb.toString)
     assertTrue(lb.isEmpty)
-    lb += "sweet"
+    lb += "sweetp"
     try {
       "verbose".charAt(-1)
       fail()
@@ -36,7 +38,8 @@ class JunitScalaTestExample extends InstrumentationTestCase with AssertionsForJU
     }
   }
 
-  @Test def verifyFun() { // Uses ScalaTest assertions
+  @Test def testverifyFun() { // Uses ScalaTest assertions
+    println("test 43")
     sb.append("fun!")
     assert(sb.toString === "ScalaTest is fun!")
     assert(lb.isEmpty)
