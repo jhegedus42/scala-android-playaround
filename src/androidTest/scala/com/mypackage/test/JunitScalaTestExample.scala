@@ -3,7 +3,6 @@ package com.mypackage.test
 
 import android.support.test.runner.AndroidJUnit4
 import android.test.InstrumentationTestCase
-import android.test.suitebuilder.annotation.SmallTest
 import org.junit.Assert._
 import org.junit.runner.RunWith
 import org.junit.{Before, Test}
@@ -19,6 +18,7 @@ class JunitScalaTestExample extends InstrumentationTestCase with AssertionsForJU
   var lb: ListBuffer[String] = _
 
   @Before def initialize() {
+    println("ebb csont before")
     sb = new StringBuilder("ScalaTest is ")
     lb = new ListBuffer[String]
   }
