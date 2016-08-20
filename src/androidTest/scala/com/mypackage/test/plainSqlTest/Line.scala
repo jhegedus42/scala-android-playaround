@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteDatabase
 import scala.collection.immutable.HashMap
 
 case class Line(title: String, text:String, next_id:Int, id:Int =0)
-object LineHelper{
+object LineOrder {
   def orderedList(l: List[Line]): List[Line] = {
     def findFirst: List[Line] => Line = lp => {
       def prevMap: (List[Line]) => Map[Int, Line] = (lp) => {
@@ -37,6 +37,10 @@ object LineHelper{
     }
     res.toList
   }
+}
+trait LineHelper{
+  this: OpenDB =>
+
   // Contacts table name
 
   val TABLE_LINES = "lines"
@@ -47,7 +51,7 @@ object LineHelper{
   val KEY_TEXT = "line_address"
   val KEY_NEXTID = "next_id"
 
-  def createTable(db: SQLiteDatabase)={
+  def createTable={
     val CREATE_CONTACTS_TABLE = "CREATE TABLE " + TABLE_LINES + "(" +
       KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
       KEY_TITLE + " TEXT," +
@@ -57,7 +61,7 @@ object LineHelper{
     db.execSQL(CREATE_CONTACTS_TABLE)
   }
 
-  def addLine(line : Line ,db: SQLiteDatabase) :Int={
+  def addLine(line : Line) :Int={
     val values = new ContentValues()
     values.put(KEY_TITLE, line.title)
     values.put(KEY_TEXT, line.text)
@@ -73,7 +77,7 @@ object LineHelper{
     contact
   }
 
-  def getAllLines(db: SQLiteDatabase): List[Line] = {
+  def getAllLines: List[Line] = {
     import scala.collection.mutable.ListBuffer
     val lineList: ListBuffer[Line] = ListBuffer[Line]()
     val selectQuery: String = "SELECT  * FROM " + TABLE_LINES
@@ -86,7 +90,7 @@ object LineHelper{
     lineList.toList
   }
 
-  def getLinesCount(db: SQLiteDatabase): Int = {
+  def getLinesCount: Int = {
     val countQuery: String = "SELECT  * FROM " + TABLE_LINES
     val cursor: Cursor = db.rawQuery(countQuery, null)
     cursor.close()
@@ -94,7 +98,7 @@ object LineHelper{
     cursor.getCount
   }
 
-  def updateLine(line: Line,db: SQLiteDatabase): Int = {
+  def updateLine(line: Line): Int = {
     val values: ContentValues = new ContentValues
     values.put(KEY_TITLE, line.title)
     values.put(KEY_TEXT, line.text)
@@ -104,14 +108,14 @@ object LineHelper{
     db.update(TABLE_LINES, values, KEY_ID + " = ?", Array[String](String.valueOf(line.id)))
   }
 
-  def deleteLine(line: Line,db: SQLiteDatabase) {
+  def deleteLine(line: Line) {
     db.delete(TABLE_LINES, KEY_ID + " = ?", Array[String](String.valueOf(line.id)))
   }
 
 
-  def insertAfter(target:Line,inserted:Line,db:SQLiteDatabase)={
-    val inserted_id  = addLine(inserted.copy(next_id = target.next_id), db)
-    updateLine(target.copy(next_id = inserted_id),db)
+  def insertAfter(target:Line,inserted:Line)={
+    val inserted_id  = addLine(inserted.copy(next_id = target.next_id))
+    updateLine(target.copy(next_id = inserted_id))
   }
 
 }

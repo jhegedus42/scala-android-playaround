@@ -12,41 +12,41 @@ import slick.jdbc.JdbcBackend.DatabaseDef
 
 class PlainSQLTest() extends ActivityInstrumentationTestCase2[MainActivity]("com.mypackage.test", classOf[MainActivity]) with AssertionsForJUnit {
   val  DATABASE_NAME = "linesInfo"
-
   override def setUp(): Unit = {
     println("ebcsont beforr")
     new File("/data/data/com.mypackage.test/databases/linesInfo").delete()
 
   }
 
-  def assertLineOrder(db: SQLiteDatabase, l:List[Int]): Unit ={
-    val res = LineHelper.getAllLines(db)
+  def assertLineOrder(lh: LineHelper, l:List[Int]): Unit ={
+    val res = lh.getAllLines
 
     println("Persons  : ")
 
     println(res)
     val l1 = res
-    val ol = LineHelper.orderedList(res)
+    val ol = LineOrder.orderedList(res)
     junit.framework.Assert.assertEquals(ol.map(_.id), l)
   }
 
   def testDB() {
-    val dBHandler: DBHandler = new DBHandler(this.getInstrumentation.getContext,DATABASE_NAME)
-    val db: SQLiteDatabase =dBHandler.getWritableDatabase
+    val dBHandler: DBHandler = new DBHandler(this.getInstrumentation.getContext, DATABASE_NAME)
+    val sql_db: SQLiteDatabase =dBHandler.getWritableDatabase
+    val lh= new LineHelper with OpenDB {val db:SQLiteDatabase=sql_db}
 
     Log.d("Insert: ", "Inserting ..")
-    LineHelper.addLine(Line("short1", " fu ll1",2),db)
-    LineHelper.addLine(Line("short2", " fu ll2",3),db)
-    LineHelper.addLine(Line("short3", " fu ll3",-1),db)
+    lh.addLine(Line("short1", " fu ll1",2))
+    lh.addLine(Line("short2", " fu ll2",3))
+    lh.addLine(Line("short3", " fu ll3",-1))
 
     Log.d("Reading: ", "Reading all lines..")
-    val lines = LineHelper.getAllLines(db)
+    val lines = lh.getAllLines
     for (line <- lines) {
       val log: String = "Id: " + line.id + " ,Name: " + line.title + " ,Address: " + line.text+", Next id:" +line.next_id
       Log.d("Line: : ", log)
     }
-    assertLineOrder(db,List(1,2,3))
-    db.close()
+    assertLineOrder(lh,List(1,2,3))
+    lh.db.close()
   }
 
 }
