@@ -7,9 +7,6 @@ import android.database.sqlite.{SQLiteDatabase, SQLiteOpenHelper}
 
 object DBHandler{
   val DATABASE_VERSION = 1
-
-  // Database Name
-
 }
 
 

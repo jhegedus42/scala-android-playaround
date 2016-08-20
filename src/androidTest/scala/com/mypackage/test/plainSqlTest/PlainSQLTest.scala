@@ -19,10 +19,6 @@ class PlainSQLTest() extends ActivityInstrumentationTestCase2[MainActivity]("com
 
   }
 
-//  def testTest1() : Unit ={
-//    println("test1")
-//    testDB()
-//  }
   def assertLineOrder(db: SQLiteDatabase, l:List[Int]): Unit ={
     val res = LineHelper.getAllLines(db)
 
@@ -46,7 +42,7 @@ class PlainSQLTest() extends ActivityInstrumentationTestCase2[MainActivity]("com
     Log.d("Reading: ", "Reading all lines..")
     val lines = LineHelper.getAllLines(db)
     for (line <- lines) {
-      val log: String = "Id: " + line.id + " ,Name: " + line.short + " ,Address: " + line.full+", Next id:" +line.next_id
+      val log: String = "Id: " + line.id + " ,Name: " + line.title + " ,Address: " + line.text+", Next id:" +line.next_id
       Log.d("Line: : ", log)
     }
     assertLineOrder(db,List(1,2,3))
