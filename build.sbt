@@ -40,5 +40,5 @@ proguardOptions ++=
     "-keep class org.junit.** { *; }" ::
     Nil
 
-//proguardCache ++= "org.scalatest" :: "org.scalactic" :: Nil
-proguardCache :=  Nil
+proguardCache ++= "org.scalatest" :: "org.scalactic" :: "org.sqldroid" :: "slick" :: "com.typesafe.slick"::Nil
+//proguardCache :=  Nil
