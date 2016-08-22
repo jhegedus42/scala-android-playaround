@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteDatabase
 
 import scala.collection.immutable.HashMap
 
-case class Line(title: String, text:String, next_id:Int, id:Int =0)
+case class Line(title: String, text:String, next_id:Int = -1, id:Int = -1)
 object LineOrder {
   def orderedList(l: List[Line]): List[Line] = {
     def findFirst: List[Line] => Line = lp => {
@@ -62,6 +62,7 @@ trait LineHelper{
   }
 
   def addLine(line : Line) :Int={
+    assert(line.next_id!=0)
     val values = new ContentValues()
     values.put(KEY_TITLE, line.title)
     values.put(KEY_TEXT, line.text)
@@ -103,19 +104,23 @@ trait LineHelper{
     values.put(KEY_TITLE, line.title)
     values.put(KEY_TEXT, line.text)
     values.put(KEY_NEXTID, new Integer(line.next_id))
-
     // updating row
     db.update(TABLE_LINES, values, KEY_ID + " = ?", Array[String](String.valueOf(line.id)))
   }
 
-  def deleteLine(line: Line) {
+  def deleteLine(line: Line) = {
     db.delete(TABLE_LINES, KEY_ID + " = ?", Array[String](String.valueOf(line.id)))
+    //TODO keep order
   }
 
 
   def insertAfter(target:Line,inserted:Line)={
     val inserted_id  = addLine(inserted.copy(next_id = target.next_id))
     updateLine(target.copy(next_id = inserted_id))
+  }
+
+  def swapLines(a:Line,b:Line)={
+
   }
 
 }

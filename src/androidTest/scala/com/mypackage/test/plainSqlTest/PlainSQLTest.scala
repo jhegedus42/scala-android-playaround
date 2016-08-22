@@ -15,7 +15,6 @@ class PlainSQLTest() extends ActivityInstrumentationTestCase2[MainActivity]("com
   override def setUp(): Unit = {
     println("ebcsont beforr")
     new File("/data/data/com.mypackage.test/databases/linesInfo").delete()
-
   }
 
   def assertLineOrder(lh: LineHelper, l:List[Int]): Unit ={
@@ -45,7 +44,17 @@ class PlainSQLTest() extends ActivityInstrumentationTestCase2[MainActivity]("com
       val log: String = "Id: " + line.id + " ,Name: " + line.title + " ,Address: " + line.text+", Next id:" +line.next_id
       Log.d("Line: : ", log)
     }
+    val l1=lines.filter(_.id==1).head
+    val l2=lines.filter(_.id==2).head
+
     assertLineOrder(lh,List(1,2,3))
+
+    lh.insertAfter(l1,Line("short4","full4"))
+    assertLineOrder(lh,List(1,4,2,3))
+
+    lh.insertAfter(l2,Line("short5","full5"))
+    assertLineOrder(lh,List(1,4,2,5,3))
+
     lh.db.close()
   }
 

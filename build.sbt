@@ -6,6 +6,14 @@ javacOptions in Compile ++= "-source" :: "1.7" :: "-target" :: "1.7" :: Nil
 
 minSdkVersion := "15"
 
+val circeVersion = "0.4.1"
+
+libraryDependencies ++= Seq(
+  "io.circe" %% "circe-core",
+  "io.circe" %% "circe-generic",
+  "io.circe" %% "circe-parser"
+  ).map(_ % circeVersion)
+
 scalaVersion := "2.11.8"
 
 libraryDependencies ++= Seq ("org.scalatest" %% "scalatest" % "2.2.6" % "test,androidTest",
@@ -40,5 +48,9 @@ proguardOptions ++=
     "-keep class org.junit.** { *; }" ::
     Nil
 
-proguardCache ++= "org.scalatest" :: "org.scalactic" :: "org.sqldroid" :: "slick" :: "com.typesafe.slick"::Nil
+//proguardCache ++= "org.scalatest" :: "org.scalactic" :: "org.sqldroid" :: "slick" :: "com.typesafe.slick"::Nil
 //proguardCache :=  Nil
+
+minSdkVersion := "21"
+dexMulti := true
+useProguardInDebug := false
