@@ -18,8 +18,10 @@ scalaVersion := "2.11.8"
 
 libraryDependencies ++= Seq ("org.scalatest" %% "scalatest" % "2.2.6" % "test,androidTest",
   "com.android.support.test" % "runner" % "0.5" % "test,androidTest" ,
+  "com.android.support" % "recyclerview-v7" % "21.0.+",
   "org.sqldroid" % "sqldroid" % "1.0.3",
-  "com.typesafe.slick" %% "slick" % "3.0.0"
+  "com.typesafe.slick" %% "slick" % "3.0.0",
+  "com.android.support" % "cardview-v7" % "21.0.+"
   )
 
 instrumentTestRunner in Android := "android.support.test.runner.AndroidJUnitRunner"
@@ -54,3 +56,6 @@ proguardOptions ++=
 minSdkVersion := "21"
 dexMulti := true
 useProguardInDebug := false
+dexMaxHeap := "4096m"
+dexMinimizeMain := false
+dexMulti := true
