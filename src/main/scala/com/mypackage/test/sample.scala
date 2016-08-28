@@ -7,11 +7,15 @@ import android.app.Activity
 import android.os.Bundle
 import android.support.v7.widget.{LinearLayoutManager, RecyclerView}
 import android.support.v7.widget.RecyclerView.{Adapter, LayoutManager}
+import android.support.v7.widget.helper.ItemTouchHelper
+import com.mypackage.test.helper.SimpleItemTouchHelperCallback
 
 class MainActivity extends Activity with TypedFindView {
     lazy val textview = findView(TR.text)
     lazy val  mRecyclerView = findView(TR.my_recycler_view);
-    lazy val mAdapter = new DataAdapter(new util.ArrayList(List("bla","basl").asJava));
+    lazy val callback = new SimpleItemTouchHelperCallback(mAdapter);
+    lazy val mItemTouchHelper = new ItemTouchHelper(callback);
+    lazy val mAdapter : DataAdapter = new DataAdapter(new util.ArrayList(List("bla","basl").asJava), mItemTouchHelper);
     lazy val mLayoutManager = new LinearLayoutManager(this);
 
 
@@ -34,6 +38,7 @@ class MainActivity extends Activity with TypedFindView {
 
         mRecyclerView.setAdapter(mAdapter);
 
+        mItemTouchHelper.attachToRecyclerView(mRecyclerView);
 
     }
 }
