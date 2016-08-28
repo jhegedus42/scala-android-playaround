@@ -12,11 +12,9 @@ import com.mypackage.test.helper.SimpleItemTouchHelperCallback
 
 class MainActivity extends Activity with TypedFindView {
     lazy val textview = findView(TR.text)
-    lazy val  mRecyclerView = findView(TR.my_recycler_view);
-    lazy val callback = new SimpleItemTouchHelperCallback(mAdapter);
-    lazy val mItemTouchHelper = new ItemTouchHelper(callback);
-    lazy val mAdapter : DataAdapter = new DataAdapter(new util.ArrayList(List("bla","basl").asJava), mItemTouchHelper);
+    lazy val mRecyclerView = findView(TR.my_recycler_view);
     lazy val mLayoutManager = new LinearLayoutManager(this);
+
 
 
 
@@ -35,6 +33,12 @@ class MainActivity extends Activity with TypedFindView {
 
         // use a linear layout manager
         mRecyclerView.setLayoutManager(mLayoutManager);
+
+        val mAdapter : DataAdapter = new DataAdapter(new util.ArrayList(List("bla","basl").asJava));
+
+        val callback = new SimpleItemTouchHelperCallback(mAdapter);
+        val mItemTouchHelper = new ItemTouchHelper(callback);
+        mAdapter.setIth(mItemTouchHelper)
 
         mRecyclerView.setAdapter(mAdapter);
 
