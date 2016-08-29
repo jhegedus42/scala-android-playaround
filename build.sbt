@@ -1,10 +1,9 @@
 androidBuild
 
+
 platformTarget in Android := "android-22"
 
 javacOptions in Compile ++= "-source" :: "1.7" :: "-target" :: "1.7" :: Nil
-
-minSdkVersion := "15"
 
 val circeVersion = "0.4.1"
 
@@ -53,9 +52,10 @@ proguardOptions ++=
 //proguardCache ++= "org.scalatest" :: "org.scalactic" :: "org.sqldroid" :: "slick" :: "com.typesafe.slick"::Nil
 //proguardCache :=  Nil
 
-minSdkVersion := "21"
+minSdkVersion := "11"
 dexMulti := true
 useProguardInDebug := false
 dexMaxHeap := "4096m"
 dexMinimizeMain := false
 dexMulti := true
+protifySettings
