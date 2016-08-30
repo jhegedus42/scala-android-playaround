@@ -110,7 +110,6 @@ trait LineHelper{
 
   def deleteLine(line: Line) = {
     db.delete(TABLE_LINES, KEY_ID + " = ?", Array[String](String.valueOf(line.id)))
-    //TODO keep order
   }
 
 

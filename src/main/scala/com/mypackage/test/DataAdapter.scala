@@ -13,7 +13,7 @@ import android.content.Context
 
 import scala.collection.mutable
 
- class DataAdapter(val initData:List[String],val c:Context ) extends RecyclerView.Adapter[MyViewHolder] with ItemTouchHelperAdapter {
+ class DataAdapter(val initData:List[String],val c:Context,val ma:MainActivity) extends RecyclerView.Adapter[MyViewHolder] with ItemTouchHelperAdapter {
 
   lazy val l :mutable.ListBuffer[String]= mutable.ListBuffer()
 
@@ -48,12 +48,17 @@ import scala.collection.mutable
 
   def onCreateViewHolder(viewGroup: ViewGroup, i: Int): MyViewHolder = {
     val view: View = LayoutInflater.from(viewGroup.getContext).inflate(R.layout.cardview, viewGroup, false)
-    return new MyViewHolder(view)
+    val vh=new MyViewHolder(view,c,ma)
+    view.setOnClickListener(vh)
+    vh.pos=i
+    return  vh
   }
 
   def onBindViewHolder(viewHolder: MyViewHolder, i: Int) {
     viewHolder.tv_country.setText(l(i))
-    // Start a drag whenever the handle view it touched
+
+    viewHolder.pos=i
+    // Start a drag whenever the handle view is touched
     viewHolder.handleView.setOnTouchListener(new View.OnTouchListener() {
       def onTouch(v: View, event: MotionEvent): Boolean = {
         if (MotionEventCompat.getActionMasked(event) == MotionEvent.ACTION_DOWN) {
@@ -64,17 +69,15 @@ import scala.collection.mutable
     })
   }
 
+   def updateItem(pos:Int,str:String)={
+     l(pos)=str
+     notifyItemChanged(pos)
+     saveState()
+   }
+
   def getItemCount: Int = {
     return l.size
   }
-
-
-//  @Override
-//  public void onItemMove(int fromPosition, int toPosition) {
-//    String prev = mItems.remove(fromPosition);
-//    mItems.add(toPosition > fromPosition ? toPosition - 1 : toPosition, prev);
-//    notifyItemMoved(fromPosition, toPosition);
-//  }
 
   def onItemMove(fromPosition: Int, toPosition: Int) {
     println("before move")
