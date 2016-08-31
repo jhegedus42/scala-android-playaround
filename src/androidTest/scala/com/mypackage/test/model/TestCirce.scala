@@ -1,6 +1,7 @@
-package com.mypackage.test
+package scala.com.mypackage.test.model
+
 import android.test.ActivityInstrumentationTestCase2
-import io.circe._
+import com.mypackage.test.MainActivity
 import io.circe.generic.auto._
 import io.circe.parser._
 import io.circe.syntax._

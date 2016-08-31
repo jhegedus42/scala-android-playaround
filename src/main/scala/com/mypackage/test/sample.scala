@@ -1,7 +1,9 @@
 package com.mypackage.test
 
 import java.util
-
+import io.circe.generic.auto._
+import io.circe.parser._
+import io.circe.syntax._
 import collection.JavaConverters._
 import android.app.Activity
 import android.content.{Context, Intent}
@@ -18,7 +20,7 @@ class MainActivity extends Activity with TypedFindView {
     lazy val mRecyclerView = findView(TR.my_recycler_view);
     lazy val mLayoutManager = new LinearLayoutManager(this);
 
-    lazy val mAdapter : DataAdapter = new DataAdapter((1 to 50).map(_.toString).toList, this.getApplicationContext,this );
+    lazy val mAdapter : DataAdapter = new DataAdapter((1 to 50).map(x =>Line(x.toString,"")).toList, this.getApplicationContext,this );
 
 
     /** Called when the activity is first created. */
@@ -45,18 +47,18 @@ class MainActivity extends Activity with TypedFindView {
 
         mItemTouchHelper.attachToRecyclerView(mRecyclerView);
 
+        println(Experiment.Test.l.uuid)
     }
 
 
     override def onActivityResult(requestCode: Int, resultCode: Int, data: Intent): Unit =
     {
         println("we returned with requestCode: "+requestCode+" and resultcode: "+resultCode)
-        val b =data.getStringExtra("newString")
-        val idx =data.getIntExtra("index",-1)
+        val item =Line.decodeFromIntent(data)
 
-        println("new string : "+b)
-        println("index : "+idx)
-        mAdapter.updateItem(idx,b)
+
+        println("item : "+item)
+        mAdapter.updateItem(item)
 
     }
 }
@@ -74,10 +76,8 @@ class DisplayMessageActivity extends Activity with TypedFindView {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.message)
         val intent = getIntent();
-        val message = intent.getStringExtra("message");
-        val idx = intent.getIntExtra("index",-1);
-
-        textview.setText(""+message)
+        val item = Line.decodeFromIntent(intent)
+        textview.setText(""+item.title)
 
         //todo return with user edited text, update the model with it
         //todo add text editor field
@@ -85,9 +85,8 @@ class DisplayMessageActivity extends Activity with TypedFindView {
         button.setOnClickListener(new View.OnClickListener {
             override def onClick(view: View): Unit = {
                 val i = new Intent()
-                i.putExtra("newString",textview.getText.toString)
-          //      i.putExtra("newString",textview.getText.toString)
-                i.putExtra("index",idx)
+                val return_item=item.copy(title=textview.getText.toString)
+                i.putExtra(Line.as_json,return_item.serialize)
                 setResult(42,i)
                 finish()
             }
