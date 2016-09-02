@@ -10,10 +10,10 @@ class MyViewHolder(val view: View, val c:Context,val mainActivity: MainActivity)
   with ItemTouchHelperViewHolder with View.OnClickListener {
   lazy val tv_country = view.findViewById(R.id.tv_country).asInstanceOf[TextView]
   lazy val handleView = itemView.findViewById(R.id.handle).asInstanceOf[ImageView]
-  var line:Line=null
-  def refresh(): Unit ={
+  lazy val thumbnailView = itemView.findViewById(R.id.thumbnail).asInstanceOf[ImageView]
 
-  }
+  var line:Line=null
+
 
 
   override def onClick(v:View) {
@@ -25,7 +25,7 @@ class MyViewHolder(val view: View, val c:Context,val mainActivity: MainActivity)
     val s:String = (line.serialize)
     intent.putExtra("line_as_json",s );
 
-    mainActivity.startActivityForResult(intent,42);
+    mainActivity.startActivityForResult(intent,MainActivity.CHANGE_TEXT);
   }
   def onItemSelected() {
   }

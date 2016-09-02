@@ -20,8 +20,10 @@ libraryDependencies ++= Seq ("org.scalatest" %% "scalatest" % "2.2.6" % "test,an
   "com.android.support" % "recyclerview-v7" % "22.2.+",
   "org.sqldroid" % "sqldroid" % "1.0.3",
   "com.typesafe.slick" %% "slick" % "3.0.0",
-  "com.android.support" % "cardview-v7" % "22.2.+"
-  )
+  "com.android.support" % "cardview-v7" % "22.2.+",
+  "com.squareup.picasso" % "picasso" % "2.5.2"
+
+)
 
 instrumentTestRunner in Android := "android.support.test.runner.AndroidJUnitRunner"
 

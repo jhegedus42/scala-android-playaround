@@ -1,5 +1,7 @@
 package com.mypackage.test
 
+import java.io.File
+
 import android.support.v4.view.MotionEventCompat
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.helper.ItemTouchHelper
@@ -7,8 +9,9 @@ import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
-import com.mypackage.test.helper.ItemTouchHelperAdapter
+import com.mypackage.test.helper.{ItemTouchHelperAdapter, Utils}
 import android.content.{Context, Intent}
+import com.squareup.picasso.Picasso
 import io.circe._
 import io.circe.generic.auto._
 import io.circe.parser._
@@ -23,7 +26,7 @@ trait HasUUID {
   val uuid: String = Helper.uuid
 }
 
-case class Line(title: String, text: String, uuid: String) {
+case class Line(title: String, text: String,  uuid: String) {
   def serialize = this.asJson.noSpaces
 }
 
@@ -90,6 +93,13 @@ class DataAdapter(val initData: List[Line], val c: Context, val ma: MainActivity
   def onBindViewHolder(viewHolder: MyViewHolder, i: Int) {
     viewHolder.tv_country.setText(l(i).title)
     viewHolder.line = l(i)
+    val cc=viewHolder.thumbnailView.getContext
+    val d =c.getFilesDir().getParent()
+    val f =new File(d+"/files/img_"+viewHolder.line.uuid)
+    Picasso.`with`(cc).load(f).into(viewHolder.thumbnailView);
+  //  viewHolder.thumbnailView.setImageResource(TR.drawable.ic_reorder_grey_500_24dp.resid)
+
+    //viewHolder.thumbnailView.setImageURI()
 
 
     // Start a drag whenever the handle view is touched

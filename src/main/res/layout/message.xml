@@ -14,9 +14,25 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/editText" android:singleLine="true"/>
+
     <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Update"
             android:id="@+id/button" android:layout_gravity="right"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="URI:"
+            android:id="@+id/uri_label"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="New Text"
+            android:id="@+id/uri_value"/>
+    <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Select Img"
+            android:id="@+id/select_img"/>
 </LinearLayout>
