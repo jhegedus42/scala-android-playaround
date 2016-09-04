@@ -21,7 +21,9 @@ libraryDependencies ++= Seq ("org.scalatest" %% "scalatest" % "2.2.6" % "test,an
   "org.sqldroid" % "sqldroid" % "1.0.3",
   "com.typesafe.slick" %% "slick" % "3.0.0",
   "com.android.support" % "cardview-v7" % "22.2.+",
-  "com.squareup.picasso" % "picasso" % "2.5.2"
+  "com.squareup.picasso" % "picasso" % "2.5.2",
+  "com.theartofdev.edmodo" % "android-image-cropper" % "2.3.+"
+
 
 )
 
@@ -53,6 +55,8 @@ proguardOptions ++=
 
 //proguardCache ++= "org.scalatest" :: "org.scalactic" :: "org.sqldroid" :: "slick" :: "com.typesafe.slick"::Nil
 //proguardCache :=  Nil
+resolvers += Resolver.jcenterRepo
+
 
 minSdkVersion := "11"
 dexMulti := true

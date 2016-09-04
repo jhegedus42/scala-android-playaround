@@ -30,8 +30,8 @@
             android:src="@drawable/ic_reorder_grey_500_24dp" />
     <ImageView
             android:id="@+id/thumbnail"
-            android:layout_width="48dp"
-            android:layout_height="match_parent"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:layout_gravity="center_vertical|left"
             android:scaleType="center"
             android:src="@drawable/ic_reorder_grey_500_24dp" />

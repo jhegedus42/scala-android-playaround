@@ -17,6 +17,11 @@ public class Utils {
         if (!destFile.exists()) {
             destFile.createNewFile();
         }
+        else
+        {
+            destFile.delete();
+            destFile.createNewFile();
+        }
 
         FileChannel source = null;
         FileChannel destination = null;

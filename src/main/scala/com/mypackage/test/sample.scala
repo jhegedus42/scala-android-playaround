@@ -18,6 +18,7 @@ import android.support.v7.widget.helper.ItemTouchHelper
 import android.view.View
 import android.view.View.OnClickListener
 import com.mypackage.test.helper.{RealPathUtil, SimpleItemTouchHelperCallback, Utils}
+import com.squareup.picasso.Picasso
 
 object MainActivity {
   val CHANGE_TEXT = 200;
@@ -101,7 +102,10 @@ class DisplayMessageActivity extends Activity with TypedFindView {
         val rp=RealPathUtil.getRealPathFromURI_API11to18(getApplicationContext,p)
         uri_value.setText(rp)
         val d =this.getApplicationContext().getFilesDir().getParent()
-        Utils.copyFile(new File(rp),new File(d+"/files/img_"+item.uuid))
+        val f= new File(d+"/files/img_"+item.uuid)
+        Utils.copyFile(new File(rp),f)
+        Picasso.`with`(getBaseContext()).invalidate(f);
+
       }
     }
   }
