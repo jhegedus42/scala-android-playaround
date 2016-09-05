@@ -1,9 +1,8 @@
-package com.mypackage.test
+package com.mypackage.test.list
 
-import java.io.{BufferedReader, File, FileReader, IOException}
+import java.io.{BufferedReader, FileReader, IOException}
 
 import android.content.Context
-import io.circe.Decoder
 import io.circe.generic.auto._
 import io.circe.parser._
 import io.circe.syntax._
@@ -23,17 +22,6 @@ object Serialize {
   def serializeLL(ls:List[Line]): String =  ls.asJson.noSpaces
 
 
-  def saveToFile(s:String, fileName:String, context: Context): Unit = {
-    try {
-      val outputStream = context.openFileOutput(fileName, Context.MODE_PRIVATE);
-      outputStream.write(s.getBytes());
-      outputStream.close();
-    } catch {
-      case ex: IOException => {
-        println("IO Exception")
-      }
-    }
-  }
 
   def loadListOfLinesFromFile(fileName:String, context: Context):Option[List[Line]]= {
     try {
@@ -50,7 +38,6 @@ object Serialize {
           text.append('\n');
         }
       }
-      import io.circe._, io.circe.generic.semiauto._
 
       br.close();
       val s=text.toString()

@@ -35,4 +35,9 @@
             android:layout_height="wrap_content"
             android:text="Select Img"
             android:id="@+id/select_img"/>
+    <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Crop"
+            android:id="@+id/crop"/>
 </LinearLayout>

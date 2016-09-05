@@ -1,10 +1,11 @@
-package com.mypackage.test
+package com.mypackage.test.list
 
 import android.content.{Context, Intent}
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.{ImageView, TextView, Toast}
 import com.mypackage.test.helper.ItemTouchHelperViewHolder
+import com.mypackage.test.{DisplayMessageActivity, MainActivity, R}
 
 class MyViewHolder(val view: View, val c:Context,val mainActivity: MainActivity) extends RecyclerView.ViewHolder(view)
   with ItemTouchHelperViewHolder with View.OnClickListener {

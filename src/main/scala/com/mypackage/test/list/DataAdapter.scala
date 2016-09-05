@@ -1,50 +1,15 @@
-package com.mypackage.test
+package com.mypackage.test.list
 
 import java.io.File
 
+import android.content.Context
 import android.support.v4.view.MotionEventCompat
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.helper.ItemTouchHelper
-import android.view.LayoutInflater
-import android.view.MotionEvent
-import android.view.View
-import android.view.ViewGroup
-import com.mypackage.test.helper.{ItemTouchHelperAdapter, Utils}
-import android.content.{Context, Intent}
+import android.view.{LayoutInflater, MotionEvent, View, ViewGroup}
+import com.mypackage.test._
+import com.mypackage.test.helper.ItemTouchHelperAdapter
 import com.squareup.picasso.Picasso
-import io.circe._
-import io.circe.generic.auto._
-import io.circe.parser._
-import io.circe.syntax._
-import io.circe.Decoder
-
-object Helper {
-  def uuid = java.util.UUID.randomUUID.toString
-}
-
-trait HasUUID {
-  val uuid: String = Helper.uuid
-}
-
-case class Line(title: String, text: String,  uuid: String) {
-  def serialize = this.asJson.noSpaces
-}
-
-object Line {
-  val as_json = "line_as_json"
-
-  def decodeFromIntent(i: Intent) = decode[Line](i.getStringExtra(Line.as_json)).toOption.get
-
-  def apply(title: String, text: String): Line = new Line(title, text, Helper.uuid)
-}
-
-object Experiment {
-
-  object Test {
-    val l = Line("bla", "bal")
-  }
-
-}
 
 import scala.collection.mutable
 
@@ -54,10 +19,8 @@ class DataAdapter(val initData: List[Line], val c: Context, val ma: MainActivity
   def saveState(): Unit = {
     val s = Serialize.serializeLL(l.toList)
     println(s)
-    Serialize.saveToFile(s, "list.json", c)
+    Helper.saveToFile(s, "list.json", c)
   }
-
-  import io.circe._, io.circe.generic.semiauto._
 
   lazy val lo: Option[List[Line]] = Serialize.loadListOfLinesFromFile("list.json", c)
   lo match {
